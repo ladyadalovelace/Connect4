@@ -210,16 +210,4 @@ public class Connect4 implements Game
             return false;
         }
     }
-
-
-
-    //tester
-    public static void main(String[] args) {
-        
-        Connect4 test = new Connect4();
-        test.printBoard();
-        test.play();
-
-
-    }
 }
