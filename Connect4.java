@@ -8,16 +8,16 @@ public class Connect4 implements Game
 
     private int row, col; //last played
 
-    private boolean gamestart = false; 
+    private boolean gamestart = false;
 
     public Connect4() {
         //random turn
         isRedTurn = ((int)(Math.random()*1)) == 1 ? true : false;
-    
+
     }
 
     //empties board.
-    public void emptyBoard() { 
+    public void emptyBoard() {
 
         board = new String[6][7];
         top = new int[7];
@@ -32,10 +32,10 @@ public class Connect4 implements Game
         }
     }
 
-    public boolean isValidMove() { 
+    public boolean isValidMove() {
         //figure out if the row/col area is the top of the filled array
         if(top[col] > 0) return true;
-        else 
+        else
             return false;
     }
 
@@ -51,7 +51,7 @@ public class Connect4 implements Game
         int newCol = col-1;
         while(newCol >=0 && check != 0){
             if (val.equals(board[row][newCol])) count --;
-            if(count == 0) return true; 
+            if(count == 0) return true;
             newCol --;
             check --;
         }
@@ -60,7 +60,7 @@ public class Connect4 implements Game
         check = 3;
         while(newCol < 7 && check != 0){
             if (val.equals(board[row][newCol])) count --;
-            if(count == 0) return true; 
+            if(count == 0) return true;
             newCol ++;
             check --;
         }
@@ -80,7 +80,7 @@ public class Connect4 implements Game
 
 
     //top down
-    public boolean leftDiagWin () { 
+    public boolean leftDiagWin () {
        // System.out.println("checking left diag");
         if(!gamestart) return false;
         int count = 1;
@@ -109,7 +109,7 @@ public class Connect4 implements Game
         else return false;
     }
 
-    public boolean rightDiagWin() { 
+    public boolean rightDiagWin() {
       //  System.out.println("checking right diag");
         if(!gamestart) return false;
         int count = 1;
@@ -138,8 +138,10 @@ public class Connect4 implements Game
         else return false;
     }
 
-    public void printBoard() { 
+    public void printBoard() {
         int row = 0;
+    System.out.print("\033[H\033[2J");
+    System.out.flush();
         for(String[] r : board) {
             System.out.print(row + "\t");
             row ++;
@@ -151,25 +153,25 @@ public class Connect4 implements Game
                 else {
                     System.out.print(" \t");
                 }
-                
+
             }
             System.out.println();
         }
 
-        for(int i = 0; i < board[0].length; i++) { 
+        for(int i = 0; i < board[0].length; i++) {
             System.out.print("\t" + i);
         }
         System.out.println();
-        
+
     }
-    public String turnStatement() { 
+    public String turnStatement() {
         return (isRedTurn) ? "Red's turn (X)" : "Blue's turn (O)";
     }
 
     //Interface method 1: play()
 
-    public void play() { 
-        Scanner keyboard = new Scanner(System.in); 
+    public void play() {
+        Scanner keyboard = new Scanner(System.in);
         System.out.println("\t\t\t\t*****CONNECT 4*****\t\t\t\t");
         while(!isGameOver() && gamestart){
             System.out.println("It's " + turnStatement());
@@ -200,11 +202,11 @@ public class Connect4 implements Game
 
     //Interface method 2: isGameOver()
     // the game is over when there's a win left diag, right diag, row, or col...
-    public boolean isGameOver() { 
+    public boolean isGameOver() {
         if(gamestart){
             return leftDiagWin() || rightDiagWin() || rowWin() || colWin();
         }
-        
+
         else {
             gamestart = true;
             return false;
@@ -215,7 +217,7 @@ public class Connect4 implements Game
 
     //tester
     public static void main(String[] args) {
-        
+
         Connect4 test = new Connect4();
         test.printBoard();
         test.play();
